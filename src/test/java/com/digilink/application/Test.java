@@ -30,6 +30,11 @@ public class Test {
     ExtentSparkReporter htmlReporter;
     ExtentReports extent;
     Login login;
+    Home home;
+    Tees tees;
+    Checkout checkout;
+
+    Hoodies hoodies;
 
     @Parameters("browser")
     @BeforeTest
@@ -51,6 +56,10 @@ public class Test {
             }
             driver.manage().window().maximize();
             login = PageFactory.initElements(driver, Login.class);
+            home = PageFactory.initElements(driver, Home.class);
+            tees = PageFactory.initElements(driver, Tees.class);
+            hoodies = PageFactory.initElements(driver, Hoodies.class);
+            checkout = PageFactory.initElements(driver, Checkout.class);
 
             String fileSeparator = System.getProperty("file.separator");
             String file = System.getProperty("user.dir") + fileSeparator + "src" + fileSeparator + "test" + fileSeparator + "java" + fileSeparator + "reporting" + fileSeparator + "LumaShopTestReport"
@@ -87,7 +96,37 @@ public class Test {
     public void invalidLoginTest(String url){
         test = extent.createTest("TC-001: invalid login test", "");
         login.navigateToLoginPage(url);
-        login.captureDetailsAndSubmit();
+        login.captureIncorrectDetailsAndSubmit();
     }
 
+    @Parameters("url")
+    @org.testng.annotations.Test(priority = 2, testName = "TC-002: valid Login test")
+    public void validLoginTest(String url){
+        test = extent.createTest("TC-002: valid login test", "");
+        login.navigateToLoginPage(url);
+        login.captureCorrectDetailsAndSubmit();
+    }
+
+    @Parameters("url")
+    @org.testng.annotations.Test(priority = 3, testName = "TC-003: successfully add Tees to Cart test")
+    public void addTeesToCartTest(String url) throws InterruptedException {
+        test = extent.createTest("TC-003: successfully add Tees to Cart test", "");
+        home.navigateToTees();
+        tees.addToCart();
+    }
+
+    @Parameters("url")
+    @org.testng.annotations.Test(priority = 4, testName = "TC-004: successfully add Hoodie to Cart test")
+    public void addHoodieToCartTest(String url) throws InterruptedException {
+        test = extent.createTest("TC-004: successfully add Hoodie to Cart test", "");
+        hoodies.searchProduct();
+        hoodies.addToCart();
+    }
+
+    @Parameters("url")
+    @org.testng.annotations.Test(priority = 5, testName = "TC-005: successfully checkout test")
+    public void checkoutTest(String url) throws InterruptedException {
+        test = extent.createTest("TC-005: successfully checkout test", "");
+        checkout.checkout();
+    }
 }

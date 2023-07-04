@@ -7,7 +7,22 @@
         <classes>
             <class name="com.digilink.application.Test">
                 <methods>
-                    <include name="invalidLoginTest"/>
+                    <include name="validLoginTest"/>
+                </methods>
+            </class>
+            <class name="com.digilink.application.Test">
+                <methods>
+                    <include name="addTeesToCartTest"/>
+                </methods>
+            </class>
+            <class name="com.digilink.application.Test">
+                <methods>
+                    <include name="addHoodieToCartTest"/>
+                </methods>
+            </class>
+            <class name="com.digilink.application.Test">
+                <methods>
+                    <include name="checkoutTest"/>
                 </methods>
             </class>
         </classes>
